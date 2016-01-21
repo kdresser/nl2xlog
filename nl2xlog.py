@@ -1301,13 +1301,13 @@ def watcherThread():                                                # !WT!
                             # Signal nginx to repopen its logs.
                             if gLIN:
                                 try:
-                                    os.kill(int(open().read()), signal.SIGUSR1)
+                                    os.kill(int(open(NGINX_PID_PATH).read()), signal.SIGUSR1)
                                     msg = 'signalled nginx to reopen logs'
                                     _sl.info(msg)
                                     time.sleep(INTERVAL / 2)   
                                 except Exception as E:
                                     _m.beep(3)
-                                    errmsg = 'could not signal nginx: {}'.format(e)
+                                    errmsg = 'could not signal nginx: {}'.format(E)
                                     _sl.error(errmsg)
                             1/1
                         1/1
