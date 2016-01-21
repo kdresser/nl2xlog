@@ -1952,10 +1952,27 @@ if __name__ == '__main__':
             msg = '{} begins'.format(ME)
             _yl.info(None, msg)
             maininits()
-            _yl.ylogpath = YLOGPATH
-            _yl.ylogopen()
-            initRoller()
-            main()
+            # OK to run (root check).
+            if gWIN:
+                ok2run = True
+            else:
+                if 'anz' in _a.ARGS:
+                    ok2run = True
+                else:
+                    if os.geteuid() == 0:
+                        ok2run = True
+                    else:
+                        _m.beep(2)
+                        errmsg = 'must be root to run {}'.format(ME)
+                        _sl.error(errmsg)
+                        ok2run = False
+            if ok2run:
+                _yl.ylogpath = YLOGPATH
+                _yl.ylogopen()
+                initRoller()
+                main()
+            else:
+                _sl.error('aborting')
             '''...
             if LF:
                 _SL.extra(None, '----------------------------------------  {}'.format(_dt.ut2iso(_dt.locut())))
@@ -2063,7 +2080,7 @@ if __name__ == '__main__':
 
 ###
 ### watch=C:/NL2XLOG/test/ work=C:/NL2XLOG/test/work/ rp=1d fr=1601201545 sent=C:/NL2XLOG/test/sent/ interval=6 xfile=C:/NL2XLOG/test/sent.txt ypath=C:/NL2XLOG/test/ylog/ rpt=C:/NL2XLOG/~me~.rpt
-### rp=1d nr=16-01-21~07:30
+### rp=1d nr=16-01-21~07:30 anz
 ###
 
 ###
